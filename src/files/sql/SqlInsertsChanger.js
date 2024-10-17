@@ -61,7 +61,9 @@ class SqlInsertsChanger {
         return col === column
       });
       if (index === -1) throw new Error (`Invalid column: ${column}`);
-      values[index] = value;
+      values[index] = typeof value === 'string'
+        ? `'${value}'`
+        : String(value);
     });
     this.lineCount++;
     if (String(this.lineCount).endsWith('000')) console.log(`Process ${this.lineCount} lines`);
